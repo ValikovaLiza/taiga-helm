@@ -34,7 +34,7 @@ auth:
   useForwardedHost: true
   oidc:
     # -- Enable OIDC authentication
-    enabled: false
+    enabled: true
     # -- OIDC provider name
     name: Keycloak
     # -- OIDC provider logo
