@@ -29,7 +29,6 @@ secretKey: taiga-secret-key
 auth:
   # -- Enable login form for local users
   defaultLoginEnabled: true
-  # -- Enable user signup
   publicRegisterEnabled: false
   # -- Use host from X-Forwarded-Host header
   useForwardedHost: true
