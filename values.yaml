@@ -30,22 +30,22 @@ auth:
   # -- Enable login form for local users
   defaultLoginEnabled: true
   # -- Enable user signup
-  publicRegisterEnabled: true
+  publicRegisterEnabled: false
   # -- Use host from X-Forwarded-Host header
   useForwardedHost: true
   oidc:
     # -- Enable OIDC authentication
     enabled: false
     # -- OIDC provider name
-    name: OIDC
+    name: Keycloak
     # -- OIDC provider logo
     logo: logo.gif
     # -- Issuer base url
-    issuer:
+    issuer: "http://213.171.26.177:8080/realms/taiga"
     # -- OAuth client id
-    clientId:
+    clientId: "taiga-client"
     # -- OAuth client secret
-    clientSecret:
+    clientSecret: "cBn4Qrcg7ZEhJt1RfEBZ9ROra5q4h3kH"
     # -- OAuth scopes
     scopes: openid profile email
     endpoints:
@@ -108,7 +108,9 @@ backend:
   # -- Resources for backend container
   resources: {}
   # -- Extra environment variables for Taiga backend
-  extraEnv: {}
+  extraEnv: 
+    TAIGA_SITES_DOMAIN: "213.171.26.177"
+    TAIGA_SITES_SCHEME: "http"
 
 frontend:
   image:
@@ -121,7 +123,9 @@ frontend:
   # -- Resources for frontend container
   resources: {}
   # -- Extra environment variables for Taiga frontend
-  extraEnv: {}
+  extraEnv:
+    TAIGA_URL: "http://taiga.example.com/api/"
+    TAIGA_WEBSOCKETS_URL: "ws://taiga.example.com/events/"
 
 events:
   image:
@@ -161,19 +165,21 @@ service:
 
 ingress:
   # -- Enable ingress for Taiga
-  enabled: false
+  enabled: true
   # -- Annotations to be added to ingress
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
+   # --  kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
 
     # -- External hostname for Taiga
-  host: chart-example.local
+  host: "taiga.example.com"
   tls:
     # -- Enable TLS on ingress
     enabled: false
-    # -- Secret name used for TLS certificate
-    secretName: chart-example-tls
 
 persistence:
   # -- Enable persistent storage
@@ -196,7 +202,9 @@ affinity: {}
 postgresql:
   image:
     # -- PostgreSQL version tag
-    tag: 14.10.0-debian-11-r31
+    registry: docker.io
+    repository: postgres
+    tag: "14.20"
   auth:
     # -- PostgreSQL enable postgres admin user
     enablePostgresUser: false
@@ -208,6 +216,10 @@ postgresql:
     password: taiga
 
 rabbitmq:
+  image:
+    registry: docker.io
+    repository: rabbitmq
+    tag: "3.8-management-alpine"
   auth:
     # -- Erlang cookie
     erlangCookie: secret-taiga-erlang-cookie
