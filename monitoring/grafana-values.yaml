@@ -1,58 +1,47 @@
-prometheus:
-  enabled: true
-  isDefault: false
-  url: http://loki-stack-prometheus-server.monitoring.svc.cluster.local:80
-
 loki:
   enabled: true
   isDefault: true
-  url: http://loki-stack.monitoring.svc.cluster.local:3100
   persistence:
     enabled: true
-    size: 5Gi
-    storageClassName: ""
+    existingClaim:
+  securityContext:
+    runAsUser: 10001
+    runAsGroup: 10001
 
 promtail:
   enabled: true
-  config:
-    logLevel: info
-    serverPort: 3101
-    clients:
-      - url: http://loki-stack.monitoring.svc.cluster.local:3100/loki/api/v1/push
 
 grafana:
   enabled: true
-
+  namespaceOverride: grafana
   admin:
     existingSecret: "grafana-admin"
     userKey: admin-user
     passwordKey: admin-password
 
-  service:
-    type: ClusterIP
-    port: 80
-    targetPort: 3000
-
   ingress:
     enabled: true
-    className: traefik
+    className: nginx
     annotations:
-      traefik.ingress.kubernetes.io/router.entrypoints: web
-      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Proto: "http"
-      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Host: "grafana.monitoring.example.com"
-      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Port: "80"
-      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-For: "$proxy_add_x_forwarded_for"
-      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Real-IP: "$remote_addr"
+      nginx.ingress.kubernetes.io/router.entrypoints: web
     hosts:
       - grafana.monitoring.example.com
     paths:
-      - /
+      - path: /
+        pathType: Prefix
 
   persistence:
     enabled: true
+    existingClaim: grafana-pvc
     size: 5Gi
     accessModes:
       - ReadWriteOnce
+
+  sidecar:
+    datasources:
+      enabled: true
+    dashboards:
+      enabled: true
 
   additionalDataSources:
     - name: Prometheus
@@ -66,14 +55,40 @@ grafana:
       access: proxy
       isDefault: true
 
-  sidecar:
-    datasources:
-      enabled: true
-    dashboards:
-      enabled: true
-
   image:
     tag: "10.0.2"
 
   env:
     GF_INSTALL_PLUGINS: "grafana-piechart-panel"
+
+prometheus:
+  enabled: true
+  forceNamespace: prometheus
+  prometheusSpec:
+    resources:
+      limits:
+        cpu: 800m
+        memory: 1Gi
+      requests:
+        cpu: 500m
+        memory: 512Mi
+    configmapReload:
+      prometheus:
+        enabled: false
+      alertmanager:
+        enabled: false
+  alertmanager:
+    persistentVolume:
+      enabled: true
+      existingClaim: prometheus-alertmanager
+      accessModes:
+        - ReadWriteMany
+
+fluent-bit:
+  enabled: false
+
+logstash:
+  enabled: false
+
+filebeat:
+  enabled: false
