@@ -1,0 +1,29 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: prometheus
+  namespace: argocd
+spec:
+  project: default
+
+  source:
+    repoURL: https://grafana.github.io/helm-charts
+    chart: prometheus
+    targetRevision: 1.12.1
+    helm:
+      valueFiles:
+        - $values/monitoring/prometheus-values.yaml
+
+  sources:
+    - repoURL: https://github.com/ValikovaLiza/taiga-helm.git
+      targetRevision: main
+      ref: values
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: monitoring
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
