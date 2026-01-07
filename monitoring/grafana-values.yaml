@@ -35,14 +35,14 @@ grafana:
 
   ingress:
     enabled: true
-    className: nginx
+    className: traefik
     annotations:
-      nginx.ingress.kubernetes.io/router.entrypoints: web
-      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Proto: "http"
-      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Host: "grafana.monitoring.example.com"
-      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Port: "80"
-      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-For: "$proxy_add_x_forwarded_for"
-      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Real-IP: "$remote_addr"
+      traefik.ingress.kubernetes.io/router.entrypoints: web
+      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Proto: "http"
+      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Host: "grafana.monitoring.example.com"
+      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Port: "80"
+      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-For: "$proxy_add_x_forwarded_for"
+      traefik.ingress.kubernetes.io/headers.customrequestheaders.X-Real-IP: "$remote_addr"
     hosts:
       - grafana.monitoring.example.com
     paths:
