@@ -7,3 +7,10 @@ ingress:
     - grafana.monitoring.example.com
   paths:
     - /
+    
+additionalDataSources:
+  - name: Prometheus
+    type: prometheus
+    url: http://prometheus-kube-prometheus-prometheus.monitoring.svc.cluster.local:9090
+    access: proxy
+    isDefault: true

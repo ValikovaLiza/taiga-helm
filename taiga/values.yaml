@@ -110,6 +110,7 @@ backend:
   extraEnv: 
     TAIGA_SITES_DOMAIN: "213.171.26.177"
     TAIGA_SITES_SCHEME: "http"
+    ENABLE_PROMETHEUS: true
 
 frontend:
   image:
