@@ -17,9 +17,22 @@ grafana:
     enabled: true
     size: 5Gi
 
+alertmanager:
+  enabled: false
+
+kubeStateMetrics:
+  enabled: true
+
+nodeExporter:
+  enabled: true
 
 prometheus:
   prometheusSpec:
     serviceMonitorSelectorNilUsesHelmValues: false
     serviceMonitorNamespaceSelector:
       any: true
+    retention: 12h
+    resources:
+      requests:
+        cpu: 200m
+        memory: 500Mi
