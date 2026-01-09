@@ -110,7 +110,6 @@ backend:
   extraEnv:
     TAIGA_SITES_DOMAIN: "213.171.26.177"
     TAIGA_SITES_SCHEME: "http"
-    ENABLE_PROMETHEUS: "true"
 
 frontend:
   image:
@@ -214,6 +213,12 @@ postgresql:
     username: taiga
     # -- PostgreSQL password used by Taiga
     password: taiga
+  extraVolumes:
+    - name: run
+      emptyDir: {}
+  extraVolumeMounts:
+    - name: run
+      mountPath: /var/run/postgresql
 
 rabbitmq:
   image:
