@@ -213,12 +213,9 @@ postgresql:
     username: taiga
     # -- PostgreSQL password used by Taiga
     password: taiga
-  extraVolumes:
-    - name: run
-      emptyDir: {}
-  extraVolumeMounts:
-    - name: run
-      mountPath: /var/run/postgresql
+  podSecurityContext:
+    runAsUser: 1001
+    fsGroup: 1001
 
 rabbitmq:
   image:
