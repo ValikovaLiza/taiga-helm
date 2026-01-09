@@ -124,8 +124,8 @@ frontend:
   resources: {}
   # -- Extra environment variables for Taiga frontend
   extraEnv:
-    TAIGA_URL: "http://taiga.example.com/api/"
-    TAIGA_WEBSOCKETS_URL: "ws://taiga.example.com/events/"
+    TAIGA_URL: "http://taiga.213.171.26.177.nip.io/api/"
+    TAIGA_WEBSOCKETS_URL: "ws://taiga.213.171.26.177.nip.io/events/"
 
 events:
   image:
@@ -176,7 +176,7 @@ ingress:
     # kubernetes.io/tls-acme: "true"
 
     # -- External hostname for Taiga
-  host: "taiga.example.com"
+  host: "taiga.213.171.26.177.nip.io"
   tls:
     # -- Enable TLS on ingress
     enabled: false
