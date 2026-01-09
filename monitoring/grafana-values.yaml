@@ -3,7 +3,7 @@ loki:
   isDefault: true
   persistence:
     enabled: true
-    existingClaim:
+    size: 5Gi
   securityContext:
     runAsUser: 10001
     runAsGroup: 10001
@@ -13,9 +13,9 @@ promtail:
 
 grafana:
   enabled: true
-  namespaceOverride: grafana
+
   admin:
-    existingSecret: "grafana-admin"
+    existingSecret: grafana-admin
     userKey: admin-user
     passwordKey: admin-password
 
@@ -25,14 +25,13 @@ grafana:
     annotations:
       nginx.ingress.kubernetes.io/router.entrypoints: web
     hosts:
-      - grafana.monitoring.example.com
+      - grafana.213.171.26.177.nip.io
     paths:
       - path: /
         pathType: Prefix
 
   persistence:
     enabled: true
-    existingClaim: grafana-pvc
     size: 5Gi
     accessModes:
       - ReadWriteOnce
@@ -46,7 +45,7 @@ grafana:
   additionalDataSources:
     - name: Prometheus
       type: prometheus
-      url: http://loki-stack-prometheus-server.monitoring.svc.cluster.local:80
+      url: http://loki-stack-prometheus-server.monitoring.svc.cluster.local
       access: proxy
       isDefault: false
     - name: Loki
@@ -59,12 +58,28 @@ grafana:
     tag: "10.0.2"
 
   env:
-    GF_INSTALL_PLUGINS: "grafana-piechart-panel"
+    GF_INSTALL_PLUGINS: grafana-piechart-panel
+    GF_SERVER_ROOT_URL: http://grafana.213.171.26.177.nip.io/
+    GF_SERVER_SERVE_FROM_SUB_PATH: "true"
 
 prometheus:
   enabled: true
-  forceNamespace: prometheus
+  forceNamespace: monitoring
+
   prometheusSpec:
+    additionalScrapeConfigs:
+      - job_name: argocd
+        metrics_path: /metrics
+        kubernetes_sd_configs:
+          - role: endpoints
+        relabel_configs:
+          - source_labels: [__meta_kubernetes_namespace]
+            action: keep
+            regex: argocd
+          - source_labels: [__meta_kubernetes_service_name]
+            action: keep
+            regex: argocd-.*-metrics
+
     resources:
       limits:
         cpu: 800m
@@ -72,17 +87,19 @@ prometheus:
       requests:
         cpu: 500m
         memory: 512Mi
+
     configmapReload:
       prometheus:
         enabled: false
       alertmanager:
         enabled: false
+
   alertmanager:
     persistentVolume:
       enabled: true
-      existingClaim: prometheus-alertmanager
       accessModes:
         - ReadWriteMany
+      size: 5Gi
 
 fluent-bit:
   enabled: false
