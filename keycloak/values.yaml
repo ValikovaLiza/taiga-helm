@@ -3,8 +3,6 @@ replicaCount: 1
 keycloak:
   username: admin
   password: VerySecret123
-  extraArgs:
-    - start-dev
 
 service:
   type: ClusterIP
