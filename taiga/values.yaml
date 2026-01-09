@@ -203,7 +203,7 @@ postgresql:
     # -- PostgreSQL version tag
     registry: docker.io
     repository: postgres
-    tag: "16.7.15"
+    tag: "14.0.3"
   auth:
     # -- PostgreSQL enable postgres admin user
     enablePostgresUser: false

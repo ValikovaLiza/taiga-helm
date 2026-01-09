@@ -20,7 +20,7 @@ keywords:
 dependencies:
   - name: postgresql
     repository: oci://registry-1.docker.io/bitnamicharts
-    version: 16.7.15
+    version: 14.0.3
   - name: rabbitmq
     repository: oci://registry-1.docker.io/bitnamicharts
     version: 14.7.0
