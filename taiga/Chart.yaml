@@ -23,4 +23,4 @@ dependencies:
     version: 16.7.15
   - name: rabbitmq
     repository: oci://registry-1.docker.io/bitnamicharts
-    version: 16.0.14
+    version: 14.7.0
