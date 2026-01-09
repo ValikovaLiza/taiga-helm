@@ -2,22 +2,13 @@ replicaCount: 1
 
 keycloak:
   username: admin
-  password: adminPass
+  password: VerySecret123
+  extraArgs:
+    - start-dev
 
 service:
-  type: ClusterIP
+  type: NodePort
   port: 8080
-
-ingress:
-  enabled: true
-  ingressClassName: nginx
-  annotations:
-    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
-  rules:
-    - host: keycloak.213.171.26.177.nip.io
-      paths:
-        - path: /
-          pathType: Prefix
 
 postgresql:
   enabled: false
