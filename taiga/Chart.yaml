@@ -19,8 +19,8 @@ keywords:
   - project management
 dependencies:
   - name: postgresql
-    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    repository: https://charts.bitnami.com/bitnami
     version: 14.0.2
   - name: rabbitmq
-    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
+    repository: https://charts.bitnami.com/bitnami
     version: 12.10.0
