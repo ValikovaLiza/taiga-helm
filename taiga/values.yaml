@@ -213,9 +213,12 @@ postgresql:
     username: taiga
     # -- PostgreSQL password used by Taiga
     password: taiga
+  persistence:
+    enabled: true
   podSecurityContext:
-    runAsUser: 1001
-    fsGroup: 1001
+    fsGroup: 999
+  securityContext:
+    runAsUser: 999
 
 rabbitmq:
   image:
