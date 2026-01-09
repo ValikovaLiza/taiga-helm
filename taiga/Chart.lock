@@ -1,9 +1,9 @@
 dependencies:
 - name: postgresql
-  repository: https://raw.githubusercontent.com/bitnami/charts/refs/heads/archive-full-index/bitnami
+  repository: https://raw.githubusercontent.com/bitnami/charts/refs/heads/archive-full-index/bitnami/
   version: 14.0.2
 - name: rabbitmq
-  repository: https://raw.githubusercontent.com/bitnami/charts/refs/heads/archive-full-index/bitnami
+  repository: https://raw.githubusercontent.com/bitnami/charts/refs/heads/archive-full-index/bitnami/
   version: 12.10.0
 digest: sha256:c9ce1f8003cf4905d532088e810f0d81308c25400036a4d76e7a669dfd888d3c
 generated: "2026-01-02T11:39:36.98978302+03:00"
