@@ -1,0 +1,15 @@
+replicaCount: 1
+
+keycloak:
+  username: admin
+  password: VerySecret123
+  extraArgs:
+    - start-dev
+
+service:
+  type: NodePort
+  port: 8080
+
+postgresql:
+  enabled: false
+replicaCount: 1
