@@ -110,6 +110,8 @@ backend:
   extraEnv:
     TAIGA_SITES_DOMAIN: "213.171.26.177"
     TAIGA_SITES_SCHEME: "http"
+    DJANGO_COLLECTSTATIC: "true"
+    DJANGO_COLLECTSTATIC_ARGS: "--noinput"
 
 frontend:
   image:
@@ -219,6 +221,14 @@ postgresql:
     fsGroup: 1001
   securityContext:
     runAsUser: 1001
+  primary:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 300m
+        memory: 512Mi
 
 rabbitmq:
   image:
@@ -237,3 +247,10 @@ rabbitmq:
   # -- Extra configuration for RabbitMQ
   extraConfiguration: |-
     default_vhost = taiga
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
