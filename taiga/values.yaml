@@ -223,8 +223,8 @@ postgresql:
 rabbitmq:
   image:
     registry: docker.io
-    repository: rabbitmq
-    tag: "3.8-management-alpine"
+    repository: bitnami/rabbitmq
+    tag: "3.12.12-debian-12-r0"
   auth:
     # -- Erlang cookie
     erlangCookie: secret-taiga-erlang-cookie
