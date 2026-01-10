@@ -5,6 +5,16 @@ keycloak:
   password: VerySecret123
   extraArgs:
     - start-dev
+  resources:
+    requests:
+      cpu: 200m
+      memory: 512Mi
+    limits:
+      cpu: 400m
+      memory: 1Gi
+
+  extraEnv:
+    JAVA_OPTS_APPEND: "-Xms256m -Xmx768m"
 
 service:
   type: NodePort

@@ -1,15 +1,55 @@
 loki:
   enabled: true
   isDefault: true
+
   persistence:
     enabled: true
     size: 5Gi
+
   securityContext:
     runAsUser: 10001
     runAsGroup: 10001
 
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
+
+  ingester:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 300m
+        memory: 512Mi
+
+  querier:
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        cpu: 300m
+        memory: 512Mi
+
+  config:
+    table_manager:
+      retention_deletes_enabled: true
+      retention_period: 12h
+
 promtail:
   enabled: true
+  resources:
+    requests:
+      cpu: 50m
+      memory: 64Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
 
 grafana:
   enabled: true
@@ -62,6 +102,14 @@ grafana:
     GF_SERVER_ROOT_URL: http://grafana.213.171.26.177.nip.io/
     GF_SERVER_SERVE_FROM_SUB_PATH: "true"
 
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
 prometheus:
   enabled: true
   forceNamespace: monitoring
@@ -81,12 +129,12 @@ prometheus:
             regex: argocd-.*-metrics
 
     resources:
-      limits:
-        cpu: 800m
-        memory: 1Gi
       requests:
-        cpu: 500m
+        cpu: 300m
         memory: 512Mi
+      limits:
+        cpu: 600m
+        memory: 768Mi
 
     configmapReload:
       prometheus:
