@@ -110,8 +110,7 @@ backend:
   extraEnv:
     TAIGA_SITES_DOMAIN: "213.171.26.177"
     TAIGA_SITES_SCHEME: "http"
-    DJANGO_COLLECTSTATIC: "true"
-    DJANGO_COLLECTSTATIC_ARGS: "--noinput"
+    DISABLE_COLLECTSTATIC: "true"
 
 frontend:
   image:
