@@ -268,6 +268,3 @@ rabbitmq:
     limits:
       cpu: 300m
       memory: 512Mi
-  configuration: |-
-    frame_max = 4096
-    min_frame_max = 4096
