@@ -105,7 +105,13 @@ backend:
     # -- Overrides the image tag whose default is the chart appVersion.
     tag: 6.8.1-fabianmp.0.1.0-oidc
   # -- Resources for backend container
-  resources: {}
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 300m
+      memory: 512Mi
   # -- Extra environment variables for Taiga backend
   extraEnv:
     TAIGA_SITES_DOMAIN: "213.171.26.177"
@@ -136,7 +142,16 @@ events:
     # -- Overrides the image tag whose default is the chart appVersion.
     tag: 6.7.0
   # -- Resources for events container
-  resources: {}
+  resources:
+    requests:
+      cpu: 50m
+      memory: 128Mi
+    limits:
+      cpu: 200m
+      memory: 256Mi
+
+  extraEnv:
+    TAIGA_EVENTS_TIMEOUT: "30"
 
 async:
   image:
@@ -253,3 +268,5 @@ rabbitmq:
     limits:
       cpu: 300m
       memory: 512Mi
+  configuration: |-
+    frame_max = 8192
