@@ -248,7 +248,7 @@ rabbitmq:
   image:
     registry: docker.io
     repository: bitnamilegacy/rabbitmq
-    tag: "4.1.3"
+    tag: "4.0.1"
   auth:
     # -- Erlang cookie
     erlangCookie: secret-taiga-erlang-cookie
@@ -270,3 +270,4 @@ rabbitmq:
       memory: 512Mi
   configuration: |-
     frame_max = 4096
+    min_frame_max = 4096
