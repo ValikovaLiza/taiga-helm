@@ -152,7 +152,6 @@ events:
 
   extraEnv:
     TAIGA_EVENTS_TIMEOUT: "30"
-    RABBITMQ_FRAME_MAX: "8192"
 
 async:
   image:
@@ -270,4 +269,4 @@ rabbitmq:
       cpu: 300m
       memory: 512Mi
   configuration: |-
-    frame_max = 8192
+    frame_max = 4096
