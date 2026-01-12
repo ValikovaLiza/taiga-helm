@@ -114,7 +114,7 @@ backend:
       memory: 512Mi
   # -- Extra environment variables for Taiga backend
   extraEnv:
-    TAIGA_SITES_DOMAIN: "213.171.26.177"
+    TAIGA_SITES_DOMAIN: "taiga-team2.duckdns.org"
     TAIGA_SITES_SCHEME: "http"
     DISABLE_COLLECTSTATIC: "true"
 
@@ -130,8 +130,8 @@ frontend:
   resources: {}
   # -- Extra environment variables for Taiga frontend
   extraEnv:
-    TAIGA_URL: "http://taiga.213.171.26.177.nip.io/api/"
-    TAIGA_WEBSOCKETS_URL: "ws://taiga.213.171.26.177.nip.io/events/"
+    TAIGA_URL: "http://taiga-team2.duckdns.org/api/"
+    TAIGA_WEBSOCKETS_URL: "ws://taiga-team2.duckdns.org/events/"
 
 events:
   image:
@@ -187,17 +187,12 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
-    nginx.ingress.kubernetes.io/server-snippet: |
-      location ^~ /.well-known/acme-challenge/ {
-        default_type "text/plain";
-        root /var/www/cert-manager;
-      }
 
     # --  kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
 
     # -- External hostname for Taiga
-  host: "taiga.213.171.26.177.nip.io"
+  host: "taiga-team2.duckdns.org"
   tls:
     # -- Enable TLS on ingress
     enabled: []
