@@ -6,7 +6,6 @@ command:
   - "--http-port=8080"
   - "--http-enabled=true"
   - "--hostname-strict=false"
-  - "--proxy=edge"
   - "--hostname=https://keycloak-taiga-team2.dedyn.io"
 
 extraEnv: |
