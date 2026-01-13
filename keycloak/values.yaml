@@ -7,7 +7,6 @@ command:
   - "--http-enabled=true"
   - "--hostname=https://keycloak-taiga-team2.dedyn.io"
   - "--db=dev-file"
-  - "--proxy=edge"
 
 extraEnv: |
   - name: KEYCLOAK_ADMIN
