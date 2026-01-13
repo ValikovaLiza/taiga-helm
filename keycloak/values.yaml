@@ -27,7 +27,6 @@ proxy:
   mode: edge
 
 http:
-  relativePath: "/auth"
   httpPort: 8080
   tls:
     enabled: false
