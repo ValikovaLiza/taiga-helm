@@ -179,11 +179,8 @@ service:
     events: 8888
 
 ingress:
-  # -- Enable ingress for Taiga
   enabled: true
-  # -- Ingress class name
   className: nginx
-  # -- Annotations to be added to ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: letsencrypt-prod
@@ -192,12 +189,13 @@ ingress:
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
     nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: "/"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      if ($request_uri ~* \.(js|css|gif|jpe?g|png|ico|svg|woff2?|ttf|eot|json)$) {
-        expires 30d;
-        add_header Cache-Control "public, immutable";
-      }
+    nginx.ingress.kubernetes.io/proxy-set-header: "Host $host"
+    nginx.ingress.kubernetes.io/proxy-set-header: "X-Real-IP $remote_addr"
+    nginx.ingress.kubernetes.io/proxy-set-header: "X-Forwarded-For $proxy_add_x_forwarded_for"
+    nginx.ingress.kubernetes.io/proxy-set-header: "X-Forwarded-Proto $scheme"
+    nginx.ingress.kubernetes.io/proxy-set-header: "X-Forwarded-Host $host"
+    nginx.ingress.kubernetes.io/proxy-set-header: "X-Forwarded-Port $server_port"
+    nginx.ingress.kubernetes.io/proxy-set-header: "X-Forwarded-Ssl on"
   hosts:
     - host: "taiga-team2.duckdns.org"
       paths:
@@ -208,41 +206,6 @@ ingress:
               name: taiga
               port:
                 number: 80
-        - path: /api
-          pathType: Prefix
-          backend:
-            service:
-              name: taiga
-              port:
-                number: 8000
-        - path: /events
-          pathType: Prefix
-          backend:
-            service:
-              name: taiga
-              port:
-                number: 8888
-        - path: /admin
-          pathType: Prefix
-          backend:
-            service:
-              name: taiga
-              port:
-                number: 8000
-        - path: /static
-          pathType: Prefix
-          backend:
-            service:
-              name: taiga
-              port:
-                number: 8000
-        - path: /media
-          pathType: Prefix
-          backend:
-            service:
-              name: taiga
-              port:
-                number: 8000
   tls:
     enable: true
     secretName: taiga-tls
