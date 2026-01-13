@@ -65,11 +65,6 @@ grafana:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       nginx.ingress.kubernetes.io/proxy-body-size: "50m"
       nginx.ingress.kubernetes.io/router.entrypoints: web,websecure
-      nginx.ingress.kubernetes.io/server-snippet: |
-        location ^~ /.well-known/acme-challenge/ {
-          allow all;
-          proxy_pass http://127.0.0.1:9;
-        }
     hosts:
       - taiga-grafana-team2.duckdns.org
     paths:
