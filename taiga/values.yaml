@@ -181,22 +181,72 @@ service:
 ingress:
   # -- Enable ingress for Taiga
   enabled: true
+  # -- Ingress class name
+  className: nginx
   # -- Annotations to be added to ingress
-  ingressClassName: nginx
   annotations:
+    kubernetes.io/ingress.class: "nginx"
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
     nginx.ingress.kubernetes.io/ssl-redirect: "true"
-
-    # --  kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
-
-  host: "taiga-team2.duckdns.org"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: "/"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      if ($request_uri ~* \.(js|css|gif|jpe?g|png|ico|svg|woff2?|ttf|eot|json)$) {
+        expires 30d;
+        add_header Cache-Control "public, immutable";
+      }
+  hosts:
+    - host: "taiga-team2.duckdns.org"
+      paths:
+        - path: /
+          pathType: Prefix
+          backend:
+            service:
+              name: taiga
+              port:
+                number: 80
+        - path: /api
+          pathType: Prefix
+          backend:
+            service:
+              name: taiga
+              port:
+                number: 8000
+        - path: /events
+          pathType: Prefix
+          backend:
+            service:
+              name: taiga
+              port:
+                number: 8888
+        - path: /admin
+          pathType: Prefix
+          backend:
+            service:
+              name: taiga
+              port:
+                number: 8000
+        - path: /static
+          pathType: Prefix
+          backend:
+            service:
+              name: taiga
+              port:
+                number: 8000
+        - path: /media
+          pathType: Prefix
+          backend:
+            service:
+              name: taiga
+              port:
+                number: 8000
   tls:
-    enabled: true
-    secretName: taiga-tls
+    - hosts:
+        - "taiga-team2.duckdns.org"
+      secretName: taiga-tls
 
 persistence:
   # -- Enable persistent storage
