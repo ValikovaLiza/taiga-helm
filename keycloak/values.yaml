@@ -1,5 +1,10 @@
 replicas: 1
 
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: "26.5.0"
+  pullPolicy: IfNotPresent
+
 command:
   - "/opt/keycloak/bin/kc.sh"
   - "start"
@@ -15,6 +20,11 @@ extraEnv: |
     value: "-Xms256m -Xmx768m"
 
 hostname: keycloak-taiga-team2.dedyn.io
+
+http:
+  relativePath: "/auth"
+  internalPort: http-internal
+  internalScheme: HTTPS
 
 service:
   type: ClusterIP
