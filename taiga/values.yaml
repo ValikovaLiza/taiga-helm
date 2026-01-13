@@ -244,9 +244,8 @@ ingress:
               port:
                 number: 8000
   tls:
-    - hosts:
-        - "taiga-team2.duckdns.org"
-      secretName: taiga-tls
+    enable: true
+    secretName: taiga-tls
 
 persistence:
   # -- Enable persistent storage
