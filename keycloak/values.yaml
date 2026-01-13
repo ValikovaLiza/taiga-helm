@@ -85,7 +85,14 @@ startupProbe: |
   periodSeconds: 10
 
 postgresql:
-  enabled: false
+  enabled: true
+  postgresqlUsername: keycloak
+  postgresqlPassword: keycloak
+  postgresqlDatabase: keycloak
+  persistence:
+    enabled: true
+    size: 1Gi
+    storageClass: standard
 
 resources:
   requests:
