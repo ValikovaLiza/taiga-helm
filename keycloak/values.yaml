@@ -34,7 +34,4 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-  tls:
-    - secretName: keycloak-tls
-      hosts:
-        - keycloak-taiga-team2.dedyn.io
+
