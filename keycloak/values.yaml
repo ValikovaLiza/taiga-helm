@@ -3,8 +3,6 @@ replicaCount: 1
 keycloak:
   username: admin
   password: VerySecret123
-  extraArgs:
-    - start-dev
   resources:
     requests:
       cpu: 200m
@@ -36,4 +34,7 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-
+  tls:
+    - secretName: keycloak-tls
+      hosts:
+        - keycloak-taiga-team2.dedyn.io
