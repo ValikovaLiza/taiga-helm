@@ -32,6 +32,7 @@ ingress:
     kubernetes.io/ingress.class: nginx
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "false"
   rules:
     - host: keycloak-taiga-team2.dedyn.io
       paths:
@@ -40,7 +41,7 @@ ingress:
   console:
     enabled: false 
   tls:
-  - secretName: keycloak-tls
-    hosts:
-      - keycloak-taiga-team2.dedyn.io
+    - secretName: keycloak-tls
+      hosts:
+        - keycloak-taiga-team2.dedyn.io
 
