@@ -17,7 +17,7 @@ keycloak:
     JAVA_OPTS_APPEND: "-Xms256m -Xmx768m"
 
 service:
-  type: NodePort
+  type: ClusterIP
   port: 8080
 
 postgresql:
@@ -28,11 +28,12 @@ ingress:
   ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "false" 
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
   hosts:
     - host: keycloak-taiga-team2.dedyn.io
       paths:
         - path: /
           pathType: Prefix
-  tls: [] 
 
