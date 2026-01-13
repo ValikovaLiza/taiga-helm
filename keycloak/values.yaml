@@ -38,11 +38,12 @@ ingress:
   ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
   rules:
     - host: keycloak-taiga-team2.dedyn.io
       paths:
         - path: /
           pathType: Prefix
-  console:
-    enabled: false
-  tls: []  
+
+
