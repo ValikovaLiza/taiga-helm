@@ -44,7 +44,7 @@ auth:
     # -- OAuth client id
     clientId: "taiga-client"
     # -- OAuth client secret
-    clientSecret: "A8LPkQtynQwFzgBSeLq2RUsJ6bqwmEem"
+    clientSecret: "BpPyAQ3eDAZquuHqkOM790crqRUr1NH4"
     # -- OAuth scopes
     scopes: openid profile email
     endpoints:
