@@ -195,7 +195,8 @@ ingress:
 
   host: "taiga-team2.duckdns.org"
   tls:
-    enabled: false
+    enabled: true
+    secretName: taiga-tls
 
 persistence:
   # -- Enable persistent storage
