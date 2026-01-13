@@ -61,13 +61,17 @@ grafana:
     enabled: true
     className: nginx
     annotations:
-      nginx.ingress.kubernetes.io/router.entrypoints: web
-      kubernetes.io/ingress.class: "nginx"
+      kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/auth-type: "none"
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        location ^~ /.well-known/acme-challenge/ {
+          allow all;
+          default_type "text/plain";
+          root /var/www/certbot;
+        }
       nginx.ingress.kubernetes.io/proxy-body-size: "50m"
-      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Proto: "http"
-      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Host: "taiga-grafana-team2.duckdns.org"
-      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Port: "443"
+      nginx.ingress.kubernetes.io/router.entrypoints: web
     hosts:
       - taiga-grafana-team2.duckdns.org
     paths:
