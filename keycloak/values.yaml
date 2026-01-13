@@ -55,7 +55,3 @@ ingress:
     - secretName: keycloak-tls
       hosts:
         - keycloak-taiga-team2.dedyn.io
-
-extraArgs:
-  - start
-  - "--proxy-address-forwarding"
