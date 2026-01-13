@@ -184,6 +184,7 @@ ingress:
   # -- Annotations to be added to ingress
   ingressClassName: nginx
   annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
     nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
@@ -194,8 +195,8 @@ ingress:
     # -- External hostname for Taiga
   host: "taiga-team2.duckdns.org"
   tls:
-    # -- Enable TLS on ingress
-    enabled: []
+    enabled: true
+    secretName: taiga-tls
 
 persistence:
   # -- Enable persistent storage
