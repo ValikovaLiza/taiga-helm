@@ -182,8 +182,9 @@ ingress:
   # -- Enable ingress for Taiga
   enabled: true
   # -- Annotations to be added to ingress
-  ingressClassName: nginx
+  ingressClassName: public
   annotations:
+    kubernetes.io/ingress.class: public
     cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/proxy-body-size: "50m"
     nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
