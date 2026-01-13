@@ -22,6 +22,10 @@ extraEnv: |
 
 hostname: keycloak-taiga-team2.dedyn.io
 
+proxy:
+  enabled: true
+  mode: edge
+
 http:
   relativePath: "/auth"
   internalPort: http-internal
