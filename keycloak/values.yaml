@@ -28,7 +28,7 @@ proxy:
 
 http:
   relativePath: "/auth"
-  internalPort: http-internal
+  internalPort: 8080
   internalScheme: HTTPS
 
 service:
