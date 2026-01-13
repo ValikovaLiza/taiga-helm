@@ -65,11 +65,17 @@ grafana:
       cert-manager.io/cluster-issuer: letsencrypt-prod
       nginx.ingress.kubernetes.io/proxy-body-size: "50m"
       nginx.ingress.kubernetes.io/router.entrypoints: web,websecure
+      nginx.ingress.kubernetes.io/rewrite-target: /$1
+      nginx.ingress.kubernetes.io/use-regex: "true"
     hosts:
-      - taiga-grafana-team2.duckdns.org
+      - taiga-team2.duckdns.org
     paths:
-      - path: /
-        pathType: Prefix
+      - path: /grafana/?(.*)
+        pathType: ImplementationSpecific
+    tls:
+      - secretName: taiga-team2-tls
+        hosts:
+          - taiga-team2.duckdns.org
 
   persistence:
     enabled: true
@@ -100,7 +106,7 @@ grafana:
 
   env:
     GF_INSTALL_PLUGINS: grafana-piechart-panel
-    GF_SERVER_ROOT_URL: http://taiga-grafana-team2.duckdns.org/
+    GF_SERVER_ROOT_URL: https://taiga-team2.duckdns.org/grafana
     GF_SERVER_SERVE_FROM_SUB_PATH: "true"
 
   resources:
