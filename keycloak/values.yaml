@@ -28,8 +28,9 @@ proxy:
 
 http:
   relativePath: "/auth"
-  internalPort: 8080
-  internalScheme: HTTPS
+  httpPort: 8080
+  tls:
+    enabled: false
 
 service:
   type: ClusterIP
