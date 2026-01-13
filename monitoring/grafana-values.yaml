@@ -62,8 +62,14 @@ grafana:
     className: nginx
     annotations:
       nginx.ingress.kubernetes.io/router.entrypoints: web
+      kubernetes.io/ingress.class: "nginx"
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+      nginx.ingress.kubernetes.io/proxy-body-size: "50m"
+      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Proto: "http"
+      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Host: "taiga-grafana-team2.duckdns.org"
+      nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Port: "443"
     hosts:
-      - grafana.213.171.26.177.nip.io
+      - taiga-grafana-team2.duckdns.org
     paths:
       - path: /
         pathType: Prefix
@@ -97,7 +103,7 @@ grafana:
 
   env:
     GF_INSTALL_PLUGINS: grafana-piechart-panel
-    GF_SERVER_ROOT_URL: http://grafana.213.171.26.177.nip.io/
+    GF_SERVER_ROOT_URL: http://taiga-grafana-team2.duckdns.org/
     GF_SERVER_SERVE_FROM_SUB_PATH: "true"
 
   resources:
