@@ -188,9 +188,14 @@ ingress:
     nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Proto: "https"
     nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Host: "taiga-team2.duckdns.org"
     nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Port: "443"
+  hosts:
+    - host: taiga-team2.duckdns.org
+      paths:
+        - path: /
+          pathType: Prefix
+
   tls:
     enabled: true
-    hosts: taiga-team2.duckdns.org
     secretName: taiga-tls
   rules:
     - host: taiga-team2.duckdns.org
