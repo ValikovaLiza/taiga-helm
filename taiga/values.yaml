@@ -48,14 +48,10 @@ auth:
     # -- OAuth scopes
     scopes: openid profile email
     endpoints:
-      # -- OAuth authorization endpoint
-      authorization:
-      # -- OAuth token endpoint
-      token:
-      # -- OAuth user info endpoint
-      userinfo:
-      # -- OAuth JWKS endpoint
-      jwks:
+      authorization: "https://keycloak-taiga-team2.dedyn.io/realms/taiga/protocol/openid-connect/auth"
+      token: "https://keycloak-taiga-team2.dedyn.io/realms/taiga/protocol/openid-connect/token"
+      userinfo: "https://keycloak-taiga-team2.dedyn.io/realms/taiga/protocol/openid-connect/userinfo"
+      jwks: "https://keycloak-taiga-team2.dedyn.io/realms/taiga/protocol/openid-connect/certs"
     claims:
       # -- OAuth user id claim
       authData: sub
