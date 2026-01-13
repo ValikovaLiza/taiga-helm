@@ -1,22 +1,26 @@
 replicaCount: 1
 
-keycloak:
-  username: admin
-  password: VerySecret123
-  resources:
-    requests:
-      cpu: 200m
-      memory: 512Mi
-    limits:
-      cpu: 400m
-      memory: 1Gi
+command:
+  - "/opt/keycloak/bin/kc.sh"
+  - "start"
+  - "--http-port=8080"
+  - "--hostname-strict=false"
 
-  extraEnv:
-    JAVA_OPTS_APPEND: "-Xms256m -Xmx768m"
+extraEnv: |
+  - name: KEYCLOAK_ADMIN
+    value: admin
+  - name: KEYCLOAK_ADMIN_PASSWORD
+    value: adminpass
+  - name: JAVA_OPTS_APPEND
+    value: "-Xms256m -Xmx768m"
 
-service:
-  type: ClusterIP
-  port: 8080
+resources:
+  requests:
+    cpu: 200m
+    memory: 512Mi
+  limits:
+    cpu: 400m
+    memory: 1Gi
 
 postgresql:
   enabled: false
@@ -34,4 +38,3 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-
