@@ -13,6 +13,11 @@ extraEnv: |
     value: adminpass
   - name: JAVA_OPTS_APPEND
     value: "-Xms256m -Xmx768m"
+    
+hostname: keycloak-taiga-team2.dedyn.io
+hostname-strict: true
+https-port: 443
+http-port: 8080
 
 resources:
   requests:
