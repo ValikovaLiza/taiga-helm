@@ -193,7 +193,6 @@ ingress:
     # --  kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
 
-    # -- External hostname for Taiga
   host: "taiga-team2.duckdns.org"
   tls:
     enabled: false
