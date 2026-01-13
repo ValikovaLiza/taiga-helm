@@ -40,11 +40,11 @@ auth:
     # -- OIDC provider logo
     logo: logo.gif
     # -- Issuer base url
-    issuer: "http://213.171.26.177:8080/realms/taiga"
+    issuer: "https://keycloak-taiga-team2.dedyn.io/realms/taiga"
     # -- OAuth client id
     clientId: "taiga-client"
     # -- OAuth client secret
-    clientSecret: "cBn4Qrcg7ZEhJt1RfEBZ9ROra5q4h3kH"
+    clientSecret: "A8LPkQtynQwFzgBSeLq2RUsJ6bqwmEem"
     # -- OAuth scopes
     scopes: openid profile email
     endpoints:
