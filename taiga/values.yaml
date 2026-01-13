@@ -190,9 +190,9 @@ ingress:
     nginx.ingress.kubernetes.io/headers.customrequestheaders.X-Forwarded-Port: "443"
 spec:
   tls:
-    - hosts:
-        - taiga-team2.duckdns.org
-      secretName: taiga-tls
+    enable: true
+    hosts: taiga-team2.duckdns.org
+    secretName: taiga-tls
   rules:
     - host: taiga-team2.duckdns.org
       http:
