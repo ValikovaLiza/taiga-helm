@@ -4,7 +4,11 @@ command:
   - "/opt/keycloak/bin/kc.sh"
   - "start"
   - "--http-port=8080"
+  - "--http-enabled=true"
   - "--hostname-strict=false"
+  - "--hostname-strict-https=false"
+  - "--proxy=edge"
+  - "--hostname=https://keycloak-taiga-team2.dedyn.io"
 
 extraEnv: |
   - name: KEYCLOAK_ADMIN
@@ -13,6 +17,16 @@ extraEnv: |
     value: VerySecret123
   - name: JAVA_OPTS_APPEND
     value: "-Xms256m -Xmx768m"
+  - name: KC_PROXY
+    value: edge
+  - name: KC_HOSTNAME_STRICT
+    value: "false"
+  - name: KC_HOSTNAME_STRICT_HTTPS
+    value: "false"
+  - name: KC_HOSTNAME_URL
+    value: https://keycloak-taiga-team2.dedyn.io
+  - name: KC_HTTP_ENABLED
+    value: "true"
 
 hostname: keycloak-taiga-team2.dedyn.io
 hostname-strict: true
