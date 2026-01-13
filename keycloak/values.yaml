@@ -4,21 +4,19 @@ command:
   - "/opt/keycloak/bin/kc.sh"
   - "start"
   - "--http-port=8080"
-  - "--http-enabled=true"
-  - "--hostname=https://keycloak-taiga-team2.dedyn.io"
-  - "--db=dev-file"
+  - "--hostname-strict=false"
 
 extraEnv: |
-  - name: KEYCLOAK_ADMIN
+  - name: KC_BOOTSTRAP_ADMIN_USERNAME
     value: admin
-  - name: KEYCLOAK_ADMIN_PASSWORD
+  - name: KC_BOOTSTRAP_ADMIN_PASSWORD
     value: VerySecret123
   - name: JAVA_OPTS_APPEND
     value: "-Xms256m -Xmx768m"
-  - name: KC_HOSTNAME
-    value: https://keycloak-taiga-team2.dedyn.io
-  - name: KC_HOSTNAME_ADMIN_URL
-    value: https://keycloak-taiga-team2.dedyn.io
+
+hostname: keycloak-taiga-team2.dedyn.io
+http-port: 8080
+hostname-strict: false
 
 resources:
   requests:
@@ -40,23 +38,6 @@ ingress:
   ingressClassName: nginx
   annotations:
     kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
-    nginx.ingress.kubernetes.io/configuration-snippet: |
-      proxy_set_header X-Forwarded-Proto https;
-      proxy_set_header X-Forwarded-Host $host;
-      proxy_set_header X-Forwarded-Port 443;
-      proxy_set_header X-Forwarded-Server $host;
-      proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-      proxy_set_header X-Real-IP $remote_addr;
-      # Для WebSocket
-      proxy_set_header Upgrade $http_upgrade;
-      proxy_set_header Connection "upgrade";
-    nginx.ingress.kubernetes.io/proxy-buffering: "off"
-    nginx.ingress.kubernetes.io/proxy-http-version: "1.1"
-    nginx.ingress.kubernetes.io/proxy-read-timeout: "3600"
-    nginx.ingress.kubernetes.io/proxy-send-timeout: "3600"
   rules:
     - host: keycloak-taiga-team2.dedyn.io
       paths:
@@ -64,7 +45,4 @@ ingress:
           pathType: Prefix
   console:
     enabled: false
-  tls:
-    - secretName: keycloak-tls
-      hosts:
-        - keycloak-taiga-team2.dedyn.io
+  tls: []  
