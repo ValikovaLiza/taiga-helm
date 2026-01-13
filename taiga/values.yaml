@@ -196,9 +196,9 @@ ingress:
           pathType: Prefix
 
   tls:
-    - secretName: taiga-tls
-      hosts:
-        - taiga-team2.duckdns.org
+    enabled: true
+    secretName: taiga-tls
+
 
 
 persistence:
