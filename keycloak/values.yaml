@@ -39,3 +39,8 @@ ingress:
           pathType: Prefix
   console:
     enabled: false 
+  tls:
+  - secretName: keycloak-tls
+    hosts:
+      - keycloak-taiga-team2.dedyn.io
+
