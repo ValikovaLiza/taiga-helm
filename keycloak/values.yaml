@@ -10,7 +10,6 @@ command:
   - "start"
   - "--http-port=8080"
   - "--hostname-strict=false"
-  - "--proxy-address-forwarding"
 extraEnv: |
   - name: KC_BOOTSTRAP_ADMIN_USERNAME
     value: admin
