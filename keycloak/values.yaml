@@ -38,7 +38,5 @@ ingress:
       paths:
         - path: /
           pathType: Prefix
-          
-ingress:
   console:
     enabled: false 
