@@ -10,6 +10,8 @@ command:
   - "start"
   - "--http-port=8080"
   - "--hostname-strict=false"
+  - "--http-enabled=true" 
+  - "--proxy-headers=xforwarded"
 extraEnv: |
   - name: KC_BOOTSTRAP_ADMIN_USERNAME
     value: admin
