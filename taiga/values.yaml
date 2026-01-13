@@ -40,18 +40,22 @@ auth:
     # -- OIDC provider logo
     logo: logo.gif
     # -- Issuer base url
-    issuer: "https://keycloak-taiga-team2.dedyn.io/realms/taiga"
+    issuer: "http://213.171.26.177:8080/realms/taiga"
     # -- OAuth client id
     clientId: "taiga-client"
     # -- OAuth client secret
-    clientSecret: "BpPyAQ3eDAZquuHqkOM790crqRUr1NH4"
+    clientSecret: "cBn4Qrcg7ZEhJt1RfEBZ9ROra5q4h3kH"
     # -- OAuth scopes
     scopes: openid profile email
     endpoints:
-      authorization: "https://keycloak-taiga-team2.dedyn.io/realms/taiga/protocol/openid-connect/auth"
-      token: "https://keycloak-taiga-team2.dedyn.io/realms/taiga/protocol/openid-connect/token"
-      userinfo: "https://keycloak-taiga-team2.dedyn.io/realms/taiga/protocol/openid-connect/userinfo"
-      jwks: "https://keycloak-taiga-team2.dedyn.io/realms/taiga/protocol/openid-connect/certs"
+      # -- OAuth authorization endpoint
+      authorization:
+      # -- OAuth token endpoint
+      token:
+      # -- OAuth user info endpoint
+      userinfo:
+      # -- OAuth JWKS endpoint
+      jwks:
     claims:
       # -- OAuth user id claim
       authData: sub
