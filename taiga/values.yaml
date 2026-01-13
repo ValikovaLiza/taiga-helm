@@ -115,7 +115,7 @@ backend:
   # -- Extra environment variables for Taiga backend
   extraEnv:
     TAIGA_SITES_DOMAIN: "taiga-team2.duckdns.org"
-    TAIGA_SITES_SCHEME: "http"
+    TAIGA_SITES_SCHEME: "https"
     DISABLE_COLLECTSTATIC: "true"
 
 frontend:
@@ -130,8 +130,8 @@ frontend:
   resources: {}
   # -- Extra environment variables for Taiga frontend
   extraEnv:
-    TAIGA_URL: "http://taiga-team2.duckdns.org/api/"
-    TAIGA_WEBSOCKETS_URL: "ws://taiga-team2.duckdns.org/events/"
+    TAIGA_URL: "https://taiga-team2.duckdns.org/api/"
+    TAIGA_WEBSOCKETS_URL: "wss://taiga-team2.duckdns.org/events/"
 
 events:
   image:
