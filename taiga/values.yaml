@@ -195,8 +195,7 @@ ingress:
     # -- External hostname for Taiga
   host: "taiga-team2.duckdns.org"
   tls:
-    enabled: true
-    secretName: taiga-tls
+    enabled: false
 
 persistence:
   # -- Enable persistent storage
