@@ -1,5 +1,21 @@
 replicas: 1
 
+command:
+  - "/opt/keycloak/bin/kc.sh"
+  - "start"
+  - "--http-port=8080"
+  - "--hostname-strict=false"
+  - "--proxy-address-forwarding"
+extraEnv: |
+  - name: KC_BOOTSTRAP_ADMIN_USERNAME
+    value: admin
+  - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+    value: VerySecret123
+  - name: JAVA_OPTS_APPEND
+    value: "-Xms256m -Xmx768m"
+
+hostname: keycloak-taiga-team2.dedyn.io
+
 service:
   type: ClusterIP
   httpPort: 8080
@@ -8,34 +24,53 @@ service:
 ingress:
   enabled: true
   ingressClassName: nginx
+
   annotations:
-    kubernetes.io/ingress.class: nginx
-    cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    kubernetes.io/ingress.class: "nginx"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
     nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
     nginx.ingress.kubernetes.io/configuration-snippet: |
       proxy_set_header X-Forwarded-Proto $scheme;
       proxy_set_header X-Forwarded-Host $host;
       proxy_set_header X-Forwarded-Port $server_port;
+
   rules:
     - host: keycloak-taiga-team2.dedyn.io
       paths:
         - path: /
           pathType: Prefix
+
   tls:
     - hosts:
         - keycloak-taiga-team2.dedyn.io
       secretName: keycloak-tls
 
-extraEnv: |
-  - name: PROXY_ADDRESS_FORWARDING
-    value: "true"
+livenessProbe: |
+  httpGet:
+    path: /auth/
+    port: http
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+
+readinessProbe: |
+  httpGet:
+    path: /auth/realms/master
+    port: http
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+
+startupProbe: |
+  httpGet:
+    path: /auth/
+    port: http
+  initialDelaySeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 60
+  periodSeconds: 10
 
 postgresql:
-  enabled: true
-  postgresqlUsername: keycloak
-  postgresqlPassword: keycloak
-  postgresqlDatabase: keycloak
+  enabled: false
 
 resources:
   requests:
