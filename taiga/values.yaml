@@ -42,9 +42,12 @@ auth:
     # -- Issuer base url
     issuer: "http://213.171.26.177:8080/realms/taiga"
     # -- OAuth client id
-    clientId: "taiga-client"
-    # -- OAuth client secret
-    clientSecret: "cBn4Qrcg7ZEhJt1RfEBZ9ROra5q4h3kH"
+    clientIdFromSecret:
+      name: taiga-oidc
+      key: client-id
+    clientSecretFromSecret:
+      name: taiga-oidc
+      key: client-secret
     # -- OAuth scopes
     scopes: openid profile email
     endpoints:

@@ -14,9 +14,17 @@ command:
   - "--proxy-headers=xforwarded"
 extraEnv: |
   - name: KC_BOOTSTRAP_ADMIN_USERNAME
-    value: admin
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-secrets
+        key: admin-username
+
   - name: KC_BOOTSTRAP_ADMIN_PASSWORD
-    value: VerySecret123
+    valueFrom:
+      secretKeyRef:
+        name: keycloak-secrets
+        key: admin-password
+
   - name: JAVA_OPTS_APPEND
     value: "-Xms256m -Xmx768m"
 
@@ -86,9 +94,11 @@ startupProbe: |
 
 postgresql:
   enabled: true
-  postgresqlUsername: keycloak
-  postgresqlPassword: keycloak
-  postgresqlDatabase: keycloak
+  auth:
+    existingSecret: keycloak-secrets
+    usernameKey: postgres-username
+    passwordKey: postgres-password
+    databaseKey: postgres-database
   persistence:
     enabled: true
     size: 1Gi
